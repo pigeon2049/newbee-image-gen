@@ -10,11 +10,16 @@
   ],
   "license": "MIT",
   "keywords": [
-    "chatbot",
-    "koishi",
-    "plugin"
+    "画图"
+  ],
+  "contributors": [
+    "萌新 <lai@live.cn>"
   ],
   "peerDependencies": {
     "koishi": "^4.18.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pigeon2049/newbee-image-gen.git"
   }
 }
