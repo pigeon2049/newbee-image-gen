@@ -21,5 +21,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pigeon2049/newbee-image-gen.git"
+  },
+  "koishi": {
+    "description": {
+      "en": "ai image use cloudflare workers ai",
+      "zh": "使用cloudflare workers ai生成图片 用法：画图 猫猫"
+    },
+    "service": {
+      "required": [],
+      "optional": ["console"]
+    }
   }
 }
