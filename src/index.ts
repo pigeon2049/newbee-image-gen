@@ -5,13 +5,17 @@ export const name = 'newbee-image-gen'
 export interface Config {
   model: string,
   CLOUDFLARE_AccountID: string,
-  CLOUDFLARE_API_TOKEN: string
+  CLOUDFLARE_API_TOKEN: string,
+  additional_prompt: string,
+  negative_prompt: string
 }
 
 export const Config: Schema<Config> = Schema.object({
   CLOUDFLARE_AccountID: Schema.string().required(),
   CLOUDFLARE_API_TOKEN: Schema.string().required(),
-  model: Schema.string().default('@cf/bytedance/stable-diffusion-xl-lightning')
+  model: Schema.string().default('@cf/bytedance/stable-diffusion-xl-lightning'),
+  additional_prompt: Schema.string().default(' Realistic, RAW, dslr, film grain, high detailed skin, natural skin texture'),
+  negative_prompt: Schema.string().default('bad anatomy, bad hands, missing fingers, extra fingers, three hands, three legs, bad arms, missing legs, missing arms, poorly drawn face, bad face, fused face, cloned face, three crus, fused feet, fused thigh, extra crus, ugly fingers, horn, cartoon, cg, 3d, unreal, animate, amputation, disconnected limbs, nsfw,worst quality,low quality,monochrome,bad hand,deformity,bad legs,error legs,bad feet,malformed limbs,ugly,poorly drawn hands,poorly drawn feet,poorly drawn face,extra fingers,mutated hands,mutation,disfigured,fused fingers'),
 })
 
 export function apply(ctx: Context, config: Config) {
@@ -28,7 +32,10 @@ export function apply(ctx: Context, config: Config) {
       const headers = {
         'Authorization': token
       }
-      const body = { prompt: content }
+      const body = {
+        prompt: content+config.additional_prompt,
+        negative_prompt: config.negative_prompt
+      }
 
       try {
         const response = await ctx.http.post(finalUrl, body, {
